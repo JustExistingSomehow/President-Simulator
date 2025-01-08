@@ -1,4 +1,4 @@
-# Run the game loop
+# Import necessary tools
 import pygame
 import random
 
@@ -20,15 +20,17 @@ stats = {
     "security": 50,
     "approval": 50,
     "economy": 50,
-    "military": 50,
-    "diplomacy": 50
+    "military": 50
 }
 
 # Define events
 events = [
     {"description": "Economic boom!", "choices": [{"text": "Celebrate", "approval": 5, "economy": 10}, {"text": "Invest", "economy": 15}]},
     {"description": "Military conflict!", "choices": [{"text": "Deploy troops", "approval": -10, "military": -5}, {"text": "Negotiate", "diplomacy": 10}]},
-    {"description": "Diplomatic success!", "choices": [{"text": "Announce", "approval": 10, "diplomacy": 10}, {"text": "Keep quiet", "approval": 5}]},
+    {"description": "Disease outbreak!", "choices": [{"text": "Quarantine", "approval": 5, "health": -10}, {"text": "Research cure", "health": 10, "funds": -5}]},
+    {"description": "Education funding cut!", "choices": [{"text": "Increase funding", "education": 10, "funds": -10}, {"text": "Ignore", "education": -10}]},
+    {"description": "Environmental disaster!", "choices": [{"text": "Clean up", "environment": 10, "funds": -10}, {"text": "Ignore", "environment": -10}]},
+    {"description": "Terrorist attack!", "choices": [{"text": "Increase security", "security": 10, "approval": -5}, {"text": "Address root causes", "security": -5, "approval": 5}]},
     {"description": "Scandal!", "choices": [{"text": "Address publicly", "approval": -20, "economy": -5}, {"text": "Ignore", "approval": -10}]},
     {"description": "Natural disaster!", "choices": [{"text": "Provide aid", "approval": 10, "economy": -10, "environment": -5}, {"text": "Ignore", "approval": -20, "environment": -10}]},
     {"description": "Technological breakthrough!", "choices": [{"text": "Invest in research", "economy": 10, "approval": 5, "education": 5}, {"text": "Sell patents", "economy": 15}]},

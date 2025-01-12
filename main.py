@@ -227,7 +227,38 @@ def handle_foreign_affairs():
     for nation_name, nation_data in nations.items():
         nation_text = font.render(f"{nation_name}", True, nation_colors[nation_name])
         screen.blit(nation_text, (50, y))
-        y += 50
+        
+        # Draw buttons for trade and peace agreements to the right of the nation name
+        trade_button = font.render("Trade Agreement", True, (255, 255, 255))
+        peace_button = font.render("Peace Agreement", True, (255, 255, 255))
+        war_button = font.render("Declare War", True, (255, 255, 255))
+        trade_rect = screen.blit(trade_button, (250, y))
+        peace_rect = screen.blit(peace_button, (500, y))  # Added space between buttons
+        war_rect = screen.blit(war_button, (750, y))  # Added space between buttons
+        buttons.append((trade_rect, "trade", nation_name))
+        buttons.append((peace_rect, "peace", nation_name))
+        buttons.append((war_rect, "war", nation_name))
+        
+        y += 30  # Decrease space above average stats
+
+        # Calculate average stats for the nation
+        avg_stats = {stat: 0 for stat in stats}
+        region_count = len(nation_data["regions"])
+        for region_stats in nation_data["regions"].values():
+            for stat, value in region_stats.items():
+                avg_stats[stat] += value
+        avg_stats = {stat: value // region_count for stat, value in avg_stats.items()}
+
+        # Display average stats using icons
+        x = 300
+        for stat, value in avg_stats.items():
+            icon = icons[stat]
+            screen.blit(icon, (x, y))
+            stat_text = font.render(f"{value}", True, (255, 255, 255))
+            screen.blit(stat_text, (x + 40, y))
+            x += 80
+        y += 30  # Decrease space below average stats
+
         for region_name, region_stats in nation_data["regions"].items():
             region_text = font.render(f"{region_name}", True, (255, 255, 255))
             screen.blit(region_text, (100, y))
@@ -240,18 +271,6 @@ def handle_foreign_affairs():
                 screen.blit(stat_text, (x + 40, y))
                 x += 80
             y += 25
-        y += 50
-
-        # Draw buttons for trade and peace agreements
-        trade_button = font.render("Trade Agreement", True, (255, 255, 255))
-        peace_button = font.render("Peace Agreement", True, (255, 255, 255))
-        war_button = font.render("Declare War", True, (255, 255, 255))
-        trade_rect = screen.blit(trade_button, (50, y))
-        peace_rect = screen.blit(peace_button, (250, y))
-        war_rect = screen.blit(war_button, (450, y))
-        buttons.append((trade_rect, "trade", nation_name))
-        buttons.append((peace_rect, "peace", nation_name))
-        buttons.append((war_rect, "war", nation_name))
         y += 50
 
     pygame.display.flip()
